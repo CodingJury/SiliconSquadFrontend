@@ -8,7 +8,7 @@ function App() {
   console.log({ routeActive });
   return (
     <div>
-      <Suspens fallback={<CustomFullScreenLoader open={true} />}>
+      <Suspense fallback={<CustomFullScreenLoader open={true} />}>
         <BrowserRouter>
           <Routes>
             {routeActive?.map((route, index) => (
@@ -16,7 +16,7 @@ function App() {
             ))}
           </Routes>
         </BrowserRouter>
-      </Suspens>
+      </Suspense>
     </div>
   );
 }
