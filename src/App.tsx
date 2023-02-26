@@ -1,13 +1,24 @@
-import { useState } from 'react'
+import { Suspense, useMemo } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import CustomFullScreenLoader from './components/CustomLoader';
+import { getRoutesBasedOnAuthentication } from './core/helper/route.helper';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const routeActive = useMemo(() => getRoutesBasedOnAuthentication(), []);
+  console.log({ routeActive });
   return (
-    <>
-      Hello
-    </>
-  )
+    <div>
+      <Suspense fallback={<CustomFullScreenLoader open={true} />}>
+        <BrowserRouter>
+          <Routes>
+            {routeActive?.map((route, index) => (
+              <Route key={index} {...route} />
+            ))}
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
+    </div>
+  );
 }
 
-export default App
+export default App;
